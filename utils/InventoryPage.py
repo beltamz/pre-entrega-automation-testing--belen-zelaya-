@@ -46,3 +46,20 @@ def filtro_esta(login_in_driver):
     driver= login_in_driver
     filtro=driver.find_element(By.CLASS_NAME, "product_sort_container")
     return filtro.is_displayed()
+
+def agregar_mochila_al_carrito(login_in_driver):
+    driver= login_in_driver
+    btnAgregarCarrito=driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack")
+    btnAgregarCarrito.click()
+    try:
+        btnRemove = driver.find_element(By.ID, "remove-sauce-labs-backpack")
+        return btnRemove.is_displayed()
+    except:
+        return False
+    
+def ver_numero_en_carrito(product_added_in_driver):
+    driver= product_added_in_driver
+    wait=WebDriverWait(driver,10)
+    cantEnCarrito= wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,"[data-test='shopping-cart-badge']" )))
+
+    return cantEnCarrito.text

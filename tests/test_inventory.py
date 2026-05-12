@@ -1,7 +1,7 @@
 """from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys"""
-from utils.InventoryPage import titulo_inventario, productos_mostrados, nombre_producto_especifico, precio_producto_especifico, mostrar_menu, filtro_esta
+from utils.InventoryPage import titulo_inventario, productos_mostrados, nombre_producto_especifico, precio_producto_especifico, mostrar_menu, filtro_esta, agregar_mochila_al_carrito, ver_numero_en_carrito
 
 def test_inventory_title(login_in_driver):
     try:
@@ -36,13 +36,26 @@ def test_menu_is_displayed(login_in_driver):
         menuVisible = mostrar_menu(login_in_driver)
         assert menuVisible == True
     except Exception as e:
-        print(f"Error en mostrar menu: {e}")
+        print(f"Error en mostrar_menu: {e}")
         raise
 
-def test_filtro_esta(login_in_driver):
+def test_filter_is_displayed(login_in_driver):
     try:
         filtro= filtro_esta(login_in_driver)
         assert filtro==True
     except Exception as e:
-        print(f"Error en elegir filtro: {e}")
+        print(f"Error en filtro_esta: {e}")
+        raise
+
+def test_add_to_cart_btn_is_clickable(login_in_driver):
+    btnCambio= agregar_mochila_al_carrito(login_in_driver)
+    assert btnCambio == True
+
+
+def test_see_number_in_cart(product_added_in_driver):
+    try: 
+        numero= ver_numero_en_carrito(product_added_in_driver)
+        assert numero=="1"
+    except Exception as e:
+        print(f"Error en ver_numero_en_carrito: {e}")
         raise
